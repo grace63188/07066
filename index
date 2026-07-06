@@ -385,12 +385,45 @@
 </div>
 
 <script>
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxGSTUuz6wRUScAmNX75x76hh197mrK8xUAWw6S3Wjfh21W7cShWtOPRg2US0RkwIQY/exec';
+
 function handleSubmit(e) {
   e.preventDefault();
-  document.getElementById('main-form').style.display = 'none';
-  const ty = document.getElementById('thankyou');
-  ty.style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const form = document.getElementById('main-form');
+  const btn = form.querySelector('.submit-btn');
+  btn.textContent = '提交中……';
+  btn.disabled = true;
+
+  const data = {
+    msg_highlight : form.msg_highlight.value.trim(),
+    msg_youtting  : form.msg_youtting.value.trim(),
+    msg_huilin    : form.msg_huilin.value.trim(),
+    msg_chishuan  : form.msg_chishuan.value.trim(),
+    msg_yingrong  : form.msg_yingrong.value.trim(),
+    msg_youjia    : form.msg_youjia.value.trim(),
+    msg_zhiyun    : form.msg_zhiyun.value.trim(),
+    msg_grace     : form.msg_grace.value.trim(),
+    msg_apply     : form.msg_apply.value.trim(),
+  };
+
+  fetch(SHEET_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  .then(() => {
+    form.style.display = 'none';
+    const ty = document.getElementById('thankyou');
+    ty.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  })
+  .catch(() => {
+    btn.textContent = '提交回饋';
+    btn.disabled = false;
+    alert('提交失敗，請確認網路連線後再試一次。');
+  });
 }
 </script>
 
