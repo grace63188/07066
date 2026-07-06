@@ -262,6 +262,22 @@
   <!-- 表單本體 -->
   <form id="main-form" onsubmit="handleSubmit(event)">
 
+    <!-- Section 0：姓名 -->
+    <div class="section">
+      <div class="section-label">基本資料</div>
+      <div class="section-title">填寫姓名<span class="req">＊</span></div>
+      <div class="section-desc">請填寫本名後兩個字。</div>
+      <input
+        type="text"
+        name="msg_name"
+        placeholder="例如：又庭、慧琳……"
+        required
+        style="width:100%;border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-family:inherit;font-size:14px;color:var(--text);background:var(--card2);outline:none;transition:border-color 0.2s,box-shadow 0.2s;"
+        onfocus="this.style.borderColor='var(--gold)';this.style.boxShadow='0 0 0 3px var(--gold-dim)';this.style.background='#fff';"
+        onblur="this.style.borderColor='';this.style.boxShadow='';this.style.background='var(--card2)';"
+      >
+    </div>
+
     <!-- Section 1：今天最驚豔的地方 -->
     <div class="section">
       <div class="section-label">Section 01</div>
@@ -396,6 +412,7 @@ function handleSubmit(e) {
   btn.disabled = true;
 
   const data = {
+    msg_name      : form.msg_name.value.trim(),
     msg_highlight : form.msg_highlight.value.trim(),
     msg_youtting  : form.msg_youtting.value.trim(),
     msg_huilin    : form.msg_huilin.value.trim(),
