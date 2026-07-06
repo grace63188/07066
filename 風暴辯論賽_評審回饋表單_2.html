@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>風暴辯論賽｜評審回饋表單</title>
+<style>
+  :root {
+    --gold: #B8962E;
+    --gold-light: #D4AC4A;
+    --gold-dim: rgba(184,150,46,0.12);
+    --gold-border: rgba(184,150,46,0.30);
+    --dark: #1A1612;
+    --dark2: #2C2419;
+    --card: #FAF8F4;
+    --card2: #F3EFE7;
+    --text: #2C2419;
+    --text2: #6B5D48;
+    --text3: #9B8E7A;
+    --border: #E2D8C8;
+    --radius: 10px;
+    --shadow: 0 2px 16px rgba(26,22,18,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #F0EBE0;
+    font-family: 'Microsoft JhengHei', '微軟正黑體', -apple-system, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--dark);
+    padding: 36px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .header-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    border: 1px solid var(--gold-border);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .header-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+  }
+
+  /* ── Form container ── */
+  .form-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ── Section ── */
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    margin-top: 20px;
+    box-shadow: var(--shadow);
+  }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+  .section-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  /* ── Person block ── */
+  .person-block {
+    margin-bottom: 20px;
+  }
+  .person-block:last-child { margin-bottom: 0; }
+
+  .person-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .person-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--dark);
+    border: 1.5px solid var(--gold-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .person-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: 0.5px;
+  }
+  .person-name span {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text3);
+    margin-left: 6px;
+    letter-spacing: 0;
+  }
+
+  /* ── Textarea ── */
+  textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--card2);
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.7;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  textarea::placeholder { color: var(--text3); }
+  textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-dim);
+    background: #fff;
+  }
+
+  /* ── 最後一題大一點 ── */
+  textarea.large { min-height: 120px; }
+
+  /* ── Submit ── */
+  .submit-wrap {
+    margin-top: 28px;
+    text-align: center;
+  }
+  .submit-btn {
+    display: inline-block;
+    background: var(--dark);
+    color: var(--gold);
+    border: 1.5px solid var(--gold-border);
+    padding: 14px 48px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .submit-btn:hover {
+    background: var(--gold);
+    color: var(--dark);
+    border-color: var(--gold);
+  }
+  .submit-hint {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Thank you screen ── */
+  .thankyou {
+    display: none;
+    text-align: center;
+    padding: 60px 24px;
+  }
+  .thankyou-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+  .thankyou h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+  .thankyou p {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.8;
+  }
+  .thankyou-gold {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* ── Required mark ── */
+  .req { color: var(--gold); margin-left: 3px; }
+
+  @media (max-width: 480px) {
+    .header h1 { font-size: 20px; }
+    .section { padding: 22px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-tag">G.R.A.C.E Academy</div>
+  <h1>風暴辯論賽｜評審回饋</h1>
+  <div class="header-sub">2026.07.06　·　感謝你今天的全程參與</div>
+</div>
+
+<div class="form-wrap">
+
+  <!-- 表單本體 -->
+  <form id="main-form" onsubmit="handleSubmit(event)">
+
+    <!-- Section 1：今天最驚豔的地方 -->
+    <div class="section">
+      <div class="section-label">Section 01</div>
+      <div class="section-title">今天最驚豔的地方<span class="req">＊</span></div>
+      <div class="section-desc">
+        整場風暴辯論賽下來，哪一個瞬間、哪一句話、或哪一個交鋒讓印象最深刻？
+      </div>
+      <textarea
+        name="msg_highlight"
+        class="large"
+        placeholder="今天最驚豔的瞬間是……"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Section 2：給六位辯手的話 -->
+    <div class="section">
+      <div class="section-label">Section 02</div>
+      <div class="section-title">給六位出賽學姐的話</div>
+      <div class="section-desc">
+        針對每位出賽學姐，寫下今天想傳遞的一段話——可以是論點帶來的共鳴、場上的表現亮點，或任何想說的事。
+      </div>
+
+      <div class="person-block">
+        <div class="person-header">
+          <div class="person-avatar">庭</div>
+          <div class="person-name">又庭學姐</div>
+        </div>
+        <textarea name="msg_youtting" placeholder="想對又庭學姐說的話……"></textarea>
+      </div>
+      <div class="divider"></div>
+      <div class="person-block">
+        <div class="person-header">
+          <div class="person-avatar">琳</div>
+          <div class="person-name">慧琳學姐</div>
+        </div>
+        <textarea name="msg_huilin" placeholder="想對慧琳學姐說的話……"></textarea>
+      </div>
+      <div class="divider"></div>
+      <div class="person-block">
+        <div class="person-header">
+          <div class="person-avatar">瑄</div>
+          <div class="person-name">婍瑄學姐</div>
+        </div>
+        <textarea name="msg_chishuan" placeholder="想對婍瑄學姐說的話……"></textarea>
+      </div>
+      <div class="divider"></div>
+      <div class="person-block">
+        <div class="person-header">
+          <div class="person-avatar">蓉</div>
+          <div class="person-name">映蓉學姐</div>
+        </div>
+        <textarea name="msg_yingrong" placeholder="想對映蓉學姐說的話……"></textarea>
+      </div>
+      <div class="divider"></div>
+      <div class="person-block">
+        <div class="person-header">
+          <div class="person-avatar">嘉</div>
+          <div class="person-name">又嘉學姐</div>
+        </div>
+        <textarea name="msg_youjia" placeholder="想對又嘉學姐說的話……"></textarea>
+      </div>
+      <div class="divider"></div>
+      <div class="person-block">
+        <div class="person-header">
+          <div class="person-avatar">芸</div>
+          <div class="person-name">芷芸學姐</div>
+        </div>
+        <textarea name="msg_zhiyun" placeholder="想對芷芸學姐說的話……"></textarea>
+      </div>
+    </div>
+
+    <!-- Section 4：給 G.R.A.C.E 跟校長的話 -->
+    <div class="section">
+      <div class="section-label">Section 03</div>
+      <div class="section-title">這場活動結束後，想對 G.R.A.C.E 跟校長說的話<span class="req">＊</span></div>
+      <div class="section-desc">
+        這次活動最感謝的地方，或是希望在 G.R.A.C.E 學院繼續探索的方向——把最真實的感受留在這裡。
+      </div>
+      <textarea
+        name="msg_grace"
+        class="large"
+        placeholder="最想說的是……"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Section 3：答辯能力的運用 -->
+    <div class="section">
+      <div class="section-label">Section 04</div>
+      <div class="section-title">今天辯論賽結束後，答辯能力的運用<span class="req">＊</span></div>
+      <div class="section-desc">
+        答辯不只屬於辯論場。今天這場賽事帶走的能力，打算用在哪個真實的場合——工作、生活、還是某個一直想說清楚卻還沒說清楚的地方？
+      </div>
+      <textarea
+        name="msg_apply"
+        class="large"
+        placeholder="今天帶走的答辯能力，打算用在……"
+        required
+      ></textarea>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-wrap">
+      <button type="submit" class="submit-btn">提交回饋</button>
+      <div class="submit-hint">＊ 標記為必填欄位</div>
+    </div>
+
+  </form>
+
+  <!-- Thank you -->
+  <div class="thankyou" id="thankyou">
+    <div class="thankyou-icon">✨😜</div>
+    <h2>感謝風暴評審團的參與！</h2>
+    <p>
+      記得找官方領取彩蛋 ✨<br><br>
+      下一場活動見！
+    </p>
+  </div>
+
+</div>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('main-form').style.display = 'none';
+  const ty = document.getElementById('thankyou');
+  ty.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
